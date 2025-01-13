@@ -3,6 +3,7 @@
 use App\Http\Controllers\adminpusController;
 use App\Http\Controllers\adminwilController;
 use App\Http\Controllers\eventController;
+use App\Http\Controllers\LembagaController;
 use App\Http\Controllers\profilController;
 use App\Http\Controllers\redirectController;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +63,11 @@ Route::group(['middleware' => ['auth', 'checkrole:1']], function() {
 
     //manajemen kegiatan
     Route::get('/event', [eventController::class, 'index']);
+
+    //Lembaga
+    Route::get('/lembaga', [LembagaController::class, 'index'])->name('lembaga.index');
+    Route::get('/lembaga/create', [LembagaController::class, 'create'])->name('lembaga.create');
+    Route::post('/lembaga', [LembagaController::class, 'store'])->name('lembaga.store');
     
 });
 
