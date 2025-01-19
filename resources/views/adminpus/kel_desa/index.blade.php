@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Provinsi</h1>
+        <h1>Kelurahan/Desa</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('adminpus') }}">Home</a></li>
-                <li class="breadcrumb-item active">Provinsi</li>
+                <li class="breadcrumb-item active">Kelurahan/Desa</li>
             </ol>
         </nav>
     </div>
@@ -16,7 +16,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Provinsi</h5>
+                        <h5 class="card-title">Data Kelurahan/Desa</h5>
 
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -26,13 +26,14 @@
                             </div>
                         @endif
 
-                        <a href="{{ route('provinsi.create') }}" class="btn btn-success mb-3">
-                            <i class="ri-add-circle-fill"></i> Tambah Provinsi
+                        <a href="{{ route('kel_desa.create') }}" class="btn btn-success mb-3">
+                            <i class="ri-add-circle-fill"></i> Tambah Kelurahan/Desa
                         </a>
-                        <form action="{{ route('provinsi.index') }}" method="GET" class="mb-3">
+                        <form action="{{ route('kel_desa.index') }}" method="GET" class="mb-3">
                             <div class="input-group">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Cari ID atau Nama Provinsi..." value="{{ request('search') }}">
+                                    placeholder="Cari ID, Nama Kelurahan/Desa, Kecamatan, Kabupaten/Kota, atau Provinsi..."
+                                    value="{{ request('search') }}">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="ri-search-line"></i>
                                 </button>
@@ -44,25 +45,31 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>ID Provinsi</th>
-                                    <th>Nama Provinsi</th>
+                                    <th>ID</th>
+                                    <th>Provinsi</th>
+                                    <th>Kabupaten/Kota</th>
+                                    <th>Kecamatan</th>
+                                    <th>Nama Kelurahan/Desa</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($provinces as $index => $province)
+                                @foreach ($kelDesas as $index => $kelDesa)
                                     <tr>
-                                        <td>{{ ($provinces->currentPage() - 1) * $provinces->perPage() + $index + 1 }}
-                                        <td>{{ $province->id }}</td>
-                                        <td>{{ $province->nama_provinsi }}</td>
+                                        <td>{{ ($kelDesas->currentPage() - 1) * $kelDesas->perPage() + $index + 1 }}</td>
+                                        <td>{{ $kelDesa->id }}</td>
+                                        <td>{{ $kelDesa->provinsi->nama_provinsi ?? 'Data tidak tersedia' }}</td>
+                                        <td>{{ $kelDesa->kabKota->nama_kab_kota ?? 'Data tidak tersedia' }}</td>
+                                        <td>{{ $kelDesa->kecamatan->nama_kecamatan ?? 'Data tidak tersedia' }}</td>
+                                        <td>{{ $kelDesa->nama_kel_desa }}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route('provinsi.edit', $province->id) }}"
+                                                <a href="{{ route('kel_desa.edit', $kelDesa->id) }}"
                                                     class="btn btn-warning btn-sm">
                                                     <i class="ri-edit-2-fill"></i>
                                                 </a>
-                                                <form action="{{ route('provinsi.destroy', $province->id) }}" method="POST"
-                                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus provinsi ini?')"
+                                                <form action="{{ route('kel_desa.destroy', $kelDesa->id) }}" method="POST"
+                                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
                                                     style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
@@ -77,9 +84,8 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-center">
-                            {{ $provinces->appends(['search' => request('search')])->links() }}
+                            {{ $kelDesas->appends(['search' => request('search')])->links() }}
                         </div>
-
                     </div>
                 </div>
             </div>

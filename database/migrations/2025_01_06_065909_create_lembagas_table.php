@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('lembagas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_prov');//foreign key
-            $table->unsignedBigInteger('id_kab_kota');//foreign key
-            $table->unsignedBigInteger('id_kec');//foreign key
-            $table->unsignedBigInteger('id_kel_desa');//foreign key
+            $table->string('id_prov', 10);
+            $table->string('id_kab_kota', 10);
+            $table->string('id_kec', 10);
+            $table->string('id_kel_desa', 10);
             // $table->integer('id_jenis');
             // $table->integer('id_sub_jenis');
             // $table->string('npsn_kodePT');

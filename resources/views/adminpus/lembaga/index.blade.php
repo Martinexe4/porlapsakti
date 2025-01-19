@@ -22,12 +22,23 @@
                         <!-- Tombol Tambah -->
                         <p>
                             <a type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="right" title="Tambah Lembaga" href="{{ url('lembaga/create') }}">
-                                <i class="ri-add-circle-fill"></i>
+                                <i class="ri-add-circle-fill"></i> Tambah Lembaga
                             </a>
                         </p>
 
+                        <form action="{{ route('lembaga.index') }}" method="GET" class="mb-3">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" 
+                                       placeholder="Cari ID, Nama Lembaga, Perpustakaan, atau Wilayah..." 
+                                       value="{{ request('search') }}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="ri-search-line"></i>
+                                </button>
+                            </div>
+                        </form>
+
                         <!-- Tabel Data Lembaga -->
-                        <table class="table datatable">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -84,6 +95,9 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        <div class="d-flex justify-content-center">
+                            {{ $lembagas->appends(['search' => request('search')])->links() }}
+                        </div>
                         <!-- End Tabel Data Lembaga -->
                     </div>
                 </div>

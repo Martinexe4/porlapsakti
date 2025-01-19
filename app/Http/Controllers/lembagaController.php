@@ -2,28 +2,55 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KabKota;
+use App\Models\KelDesa;
 use Illuminate\Http\Request;
 use App\Models\Lembaga;
 use App\Models\Provinsi;
-use App\Models\kab_kota;
 use App\Models\kecamatan;
-use App\Models\kel_desa;
-
 
 class lembagaController extends Controller
 {
     // Menampilkan data lembaga
-    public function index()
+    public function index(Request $request)
     {
-        $lembagas = Lembaga::with(['provinsi', 'kab_kota', 'kecamatan', 'kel_desa'])->get();
+        $query = Lembaga::with(['provinsi', 'kab_kota', 'kecamatan', 'kel_desa']);
+    
+        // Filter pencarian
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('id', 'LIKE', '%' . $search . '%')
+                  ->orWhere('nama_lembaga', 'LIKE', '%' . $search . '%')
+                  ->orWhere('nama_perpus', 'LIKE', '%' . $search . '%')
+                  ->orWhere('NPP', 'LIKE', '%' . $search . '%')
+                  ->orWhereHas('provinsi', function ($q) use ($search) {
+                      $q->where('nama_provinsi', 'LIKE', '%' . $search . '%');
+                  })
+                  ->orWhereHas('kab_kota', function ($q) use ($search) {
+                      $q->where('nama_kab_kota', 'LIKE', '%' . $search . '%');
+                  })
+                  ->orWhereHas('kecamatan', function ($q) use ($search) {
+                      $q->where('nama_kecamatan', 'LIKE', '%' . $search . '%');
+                  })
+                  ->orWhereHas('kel_desa', function ($q) use ($search) {
+                      $q->where('nama_kel_desa', 'LIKE', '%' . $search . '%');
+                  });
+        }
+    
+        // Paginasi dan sorting
+        $lembagas = $query->orderBy('id_prov', 'asc')
+                          ->orderBy('id_kab_kota', 'asc')
+                          ->paginate(15)
+                          ->onEachSide(2);
+    
         return view('adminpus.lembaga.index', compact('lembagas'));
-    }
+    }    
 
     // Menampilkan halaman tambah lembaga
     public function create()
     {
         $provinces = Provinsi::all();
-        $kabupatenKotas = kab_kota::all();
+        $kabupatenKotas = KabKota::all();
         $kecamatans = kecamatan::all();
         
         return view('adminpus.lembaga.create', compact('provinces', 'kabupatenKotas', 'kecamatans'));
@@ -60,9 +87,9 @@ class lembagaController extends Controller
     {
         $lembaga = Lembaga::findOrFail($id);
         $provinces = Provinsi::all();
-        $kabupatenKotas = kab_kota::where('id_prov', $lembaga->id_prov)->get();
+        $kabupatenKotas = KabKota::where('id_prov', $lembaga->id_prov)->get();
         $kecamatans = kecamatan::where('id_kab_kota', $lembaga->id_kab_kota)->get();
-        $kelurahanDesas = kel_desa::where('id_kecamatan', $lembaga->id_kec)->get();
+        $kelurahanDesas = KelDesa::where('id_kecamatan', $lembaga->id_kec)->get();
 
     return view('adminpus.lembaga.edit', compact('lembaga', 'provinces', 'kabupatenKotas', 'kecamatans', 'kelurahanDesas'));
     }
