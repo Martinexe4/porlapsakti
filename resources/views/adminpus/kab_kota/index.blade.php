@@ -36,13 +36,12 @@
                             </button>
                         </div>
                     </form>
-                    
 
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>ID</th>
+                                <th>Kode Kab/Kota</th>
                                 <th>Provinsi</th>
                                 <th>Nama Kabupaten/Kota</th>
                                 <th>Aksi</th>
@@ -51,17 +50,17 @@
                         <tbody>
                             @foreach ($kab_kotas as $index => $kab_kota)
                             <tr>
-                                <td>{{ ($kab_kotas->currentPage() - 1) * $kab_kotas->perPage() + $index + 1 }}
-                                <td>{{ $kab_kota->id }}</td>
+                                <td>{{ ($kab_kotas->currentPage() - 1) * $kab_kotas->perPage() + $index + 1 }}</td>
+                                <td>{{ $kab_kota->kode_kab_kota }}</td>
                                 <td>{{ $kab_kota->provinsi->nama_provinsi }}</td>
                                 <td>{{ $kab_kota->nama_kab_kota }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('kab_kota.edit', $kab_kota->id) }}" 
+                                        <a href="{{ route('kab_kota.edit', $kab_kota->kode_kab_kota) }}" 
                                            class="btn btn-warning btn-sm">
                                             <i class="ri-edit-2-fill"></i>
                                         </a>
-                                        <form action="{{ route('kab_kota.destroy', $kab_kota->id) }}" 
+                                        <form action="{{ route('kab_kota.destroy', $kab_kota->kode_kab_kota) }}" 
                                               method="POST" 
                                               onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')" 
                                               style="display:inline;">
@@ -80,11 +79,9 @@
                     <div class="d-flex justify-content-center">
                         {{ $kab_kotas->appends(['search' => request('search')])->links() }}
                     </div>
-                    
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 @endsection

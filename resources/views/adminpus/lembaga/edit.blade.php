@@ -46,44 +46,44 @@
 
                         <!-- Provinsi -->
                         <div class="mb-3">
-                            <label for="id_prov" class="form-label">Provinsi</label>
-                            <select name="id_prov" id="provinsi" class="form-select" required>
+                            <label for="kode_prov" class="form-label">Provinsi</label>
+                            <select name="kode_prov" id="provinsi" class="form-select" required>
                                 <option value="" selected>Pilih Provinsi</option>
                                 @foreach($provinces as $prov)
-                                    <option value="{{ $prov->id }}" {{ $lembaga->id_prov == $prov->id ? 'selected' : '' }}>{{ $prov->nama_provinsi }}</option>
+                                    <option value="{{ $prov->kode_prov }}" {{ $lembaga->kode_prov == $prov->kode_prov ? 'selected' : '' }}>{{ $prov->nama_provinsi }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <!-- Kabupaten/Kota -->
                         <div class="mb-3">
-                            <label for="id_kab_kota" class="form-label">Kabupaten/Kota</label>
-                            <select name="id_kab_kota" id="kabupaten_kota" class="form-select" required>
+                            <label for="kode_kab_kota" class="form-label">Kabupaten/Kota</label>
+                            <select name="kode_kab_kota" id="kabupaten_kota" class="form-select" required>
                                 <option value="" selected>Pilih Kabupaten/Kota</option>
                                 @foreach ($kabupatenKotas as $kabupatenKota)
-                                    <option value="{{ $kabupatenKota->id }}" {{ $lembaga->id_kab_kota == $kabupatenKota->id ? 'selected' : '' }}>{{ $kabupatenKota->nama_kab_kota }}</option>
+                                    <option value="{{ $kabupatenKota->kode_kab_kota }}" {{ $lembaga->kode_kab_kota == $kabupatenKota->kode_kab_kota ? 'selected' : '' }}>{{ $kabupatenKota->nama_kab_kota }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <!-- Kecamatan -->
                         <div class="mb-3">
-                            <label for="id_kec" class="form-label">Kecamatan</label>
-                            <select name="id_kec" id="kecamatan" class="form-select" required>
+                            <label for="kode_kec" class="form-label">Kecamatan</label>
+                            <select name="kode_kec" id="kecamatan" class="form-select" required>
                                 <option value="" selected>Pilih Kecamatan</option>
                                 @foreach ($kecamatans as $kecamatan)
-                                    <option value="{{ $kecamatan->id }}" {{ $lembaga->id_kec == $kecamatan->id ? 'selected' : '' }}>{{ $kecamatan->nama_kecamatan }}</option>
+                                    <option value="{{ $kecamatan->kode_kec }}" {{ $lembaga->kode_kec == $kecamatan->kode_kec ? 'selected' : '' }}>{{ $kecamatan->nama_kecamatan }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <!-- Kelurahan/Desa -->
                         <div class="mb-3">
-                            <label for="id_kel_desa" class="form-label">Kelurahan/Desa</label>
-                            <select name="id_kel_desa" id="kelurahan_desa" class="form-select" required>
+                            <label for="kode_kel_desa" class="form-label">Kelurahan/Desa</label>
+                            <select name="kode_kel_desa" id="kelurahan_desa" class="form-select" required>
                                 <option value="" selected>Pilih Kelurahan/Desa</option>
                                 @foreach ($kelurahanDesas as $kelurahanDesa)
-                                    <option value="{{ $kelurahanDesa->id }}" {{ $lembaga->id_kel_desa == $kelurahanDesa->id ? 'selected' : '' }}>{{ $kelurahanDesa->nama_kel_desa }}</option>
+                                    <option value="{{ $kelurahanDesa->kode_kel_desa }}" {{ $lembaga->kode_kel_desa == $kelurahanDesa->kode_kel_desa ? 'selected' : '' }}>{{ $kelurahanDesa->nama_kel_desa }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -152,7 +152,7 @@
                         success: function(data) {
                             $('#kabupaten_kota').prop('disabled', false);
                             $.each(data, function(key, value) {
-                                $('#kabupaten_kota').append('<option value="' + value.id + '">' + value.nama_kab_kota + '</option>');
+                                $('#kabupaten_kota').append('<option value="' + value.kode_kab_kota + '">' + value.nama_kab_kota + '</option>');
                             });
                         }
                     });
@@ -174,7 +174,7 @@
                         success: function(data) {
                             $('#kecamatan').prop('disabled', false);
                             $.each(data, function(key, value) {
-                                $('#kecamatan').append('<option value="' + value.id + '">' + value.nama_kecamatan + '</option>');
+                                $('#kecamatan').append('<option value="' + value.kode_kec + '">' + value.nama_kecamatan + '</option>');
                             });
                         }
                     });
@@ -194,8 +194,10 @@
                         dataType: 'json',
                         success: function(data) {
                             $('#kelurahan_desa').prop('disabled', false);
+                            console.log(data);
+                            
                             $.each(data, function(key, value) {
-                                $('#kelurahan_desa').append('<option value="' + value.id + '">' + value.nama_kel_desa + '</option>');
+                                $('#kelurahan_desa').append('<option value="' + value.kode_kel_desa + '">' + value.nama_kel_desa + '</option>');
                             });
                         }
                     });
