@@ -28,12 +28,12 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('provinsi.update', $provinsi->id) }}" method="POST">
+                    <form action="{{ route('provinsi.update', $provinsi->kode_prov) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
-                            <label for="id" class="form-label">ID Provinsi</label>
-                            <input type="number" class="form-control" value="{{ $provinsi->id }}" disabled>
+                            <label for="kode_prov" class="form-label">Kode Provinsi</label>
+                            <input type="text" class="form-control" value="{{ $provinsi->kode_prov }}" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="nama_provinsi" class="form-label">Nama Provinsi</label>

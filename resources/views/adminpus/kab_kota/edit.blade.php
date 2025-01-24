@@ -28,25 +28,25 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('kab_kota.update', $kab_kota->id) }}" method="POST">
+                    <form action="{{ route('kab_kota.update', $kab_kota->kode_kab_kota) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
-                            <label for="id" class="form-label">ID Kabupaten/Kota</label>
-                            <input type="number" class="form-control" value="{{ $kab_kota->id }}" disabled>
+                            <label for="kode_kab_kota" class="form-label">Kode Kabupaten/Kota</label>
+                            <input type="text" class="form-control" value="{{ $kab_kota->kode_kab_kota }}" disabled>
                         </div>
                         <div class="mb-3">
-                            <label for="id_prov" class="form-label">Provinsi</label>
-                            <select name="id_prov" class="form-select @error('id_prov') is-invalid @enderror" required>
+                            <label for="kode_prov" class="form-label">Provinsi</label>
+                            <select name="kode_prov" class="form-select @error('kode_prov') is-invalid @enderror" required>
                                 <option value="">Pilih Provinsi</option>
                                 @foreach($provinces as $provinsi)
-                                    <option value="{{ $provinsi->id }}" 
-                                            {{ (old('id_prov', $kab_kota->id_prov) == $provinsi->id) ? 'selected' : '' }}>
+                                    <option value="{{ $provinsi->kode_prov }}" 
+                                            {{ (old('kode_prov', $kab_kota->kode_prov) == $provinsi->kode_prov) ? 'selected' : '' }}>
                                         {{ $provinsi->nama_provinsi }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('id_prov')
+                            @error('kode_prov')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

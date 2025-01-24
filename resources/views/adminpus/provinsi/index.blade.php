@@ -32,19 +32,18 @@
                         <form action="{{ route('provinsi.index') }}" method="GET" class="mb-3">
                             <div class="input-group">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Cari ID atau Nama Provinsi..." value="{{ request('search') }}">
+                                    placeholder="Cari Kode atau Nama Provinsi..." value="{{ request('search') }}">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="ri-search-line"></i>
                                 </button>
                             </div>
                         </form>
 
-
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>ID Provinsi</th>
+                                    <th>Kode Provinsi</th>
                                     <th>Nama Provinsi</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -52,16 +51,16 @@
                             <tbody>
                                 @foreach ($provinces as $index => $province)
                                     <tr>
-                                        <td>{{ ($provinces->currentPage() - 1) * $provinces->perPage() + $index + 1 }}
-                                        <td>{{ $province->id }}</td>
+                                        <td>{{ ($provinces->currentPage() - 1) * $provinces->perPage() + $index + 1 }}</td>
+                                        <td>{{ $province->kode_prov }}</td>
                                         <td>{{ $province->nama_provinsi }}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route('provinsi.edit', $province->id) }}"
+                                                <a href="{{ route('provinsi.edit', $province->kode_prov) }}"
                                                     class="btn btn-warning btn-sm">
                                                     <i class="ri-edit-2-fill"></i>
                                                 </a>
-                                                <form action="{{ route('provinsi.destroy', $province->id) }}" method="POST"
+                                                <form action="{{ route('provinsi.destroy', $province->kode_prov) }}" method="POST"
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus provinsi ini?')"
                                                     style="display:inline;">
                                                     @csrf

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\KabKota;
-use App\Models\provinsi;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 
 class KabupatenKotaController extends Controller
@@ -21,8 +20,8 @@ class KabupatenKotaController extends Controller
                   });
         }
     
-        $kab_kotas = $query->orderBy('id_prov', 'asc')
-                           ->orderBy('id', 'asc')
+        $kab_kotas = $query->orderBy('kode_prov', 'asc')
+                           ->orderBy('kode_kab_kota', 'asc')
                            ->paginate(15)
                            ->onEachSide(2);
     
@@ -32,22 +31,21 @@ class KabupatenKotaController extends Controller
 
     public function create()
     {
-        $provinces = provinsi::orderBy('id', 'asc')->get();
+        $provinces = Provinsi::orderBy('kode_prov', 'asc')->get();
         return view('adminpus.kab_kota.create', compact('provinces'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id' => 'required|numeric|unique:kab_kotas,id',
-            'id_prov' => 'required|exists:provinsis,id',
+            'kode_kab_kota' => 'required|string|max:10|unique:kab_kotas,kode_kab_kota',
+            'kode_prov' => 'required|exists:provinsis,kode_prov',
             'nama_kab_kota' => 'required|string|max:255|unique:kab_kotas,nama_kab_kota'
         ], [
-            'id.required' => 'ID kabupaten/kota wajib diisi',
-            'id.numeric' => 'ID harus berupa angka',
-            'id.unique' => 'ID sudah digunakan',
-            'id_prov.required' => 'Provinsi wajib dipilih',
-            'id_prov.exists' => 'Provinsi tidak valid',
+            'kode_kab_kota.required' => 'Kode kabupaten/kota wajib diisi',
+            'kode_kab_kota.unique' => 'Kode kabupaten/kota sudah digunakan',
+            'kode_prov.required' => 'Provinsi wajib dipilih',
+            'kode_prov.exists' => 'Provinsi tidak valid',
             'nama_kab_kota.required' => 'Nama kabupaten/kota wajib diisi',
             'nama_kab_kota.unique' => 'Nama kabupaten/kota sudah ada'
         ]);
@@ -58,23 +56,23 @@ class KabupatenKotaController extends Controller
             ->with('success', 'Kabupaten/Kota berhasil ditambahkan!');
     }
 
-    public function edit($id)
+    public function edit($kode_kab_kota)
     {
-        $kab_kota = KabKota::findOrFail($id);
-        $provinces = provinsi::orderBy('id', 'asc')->get();
+        $kab_kota = KabKota::where('kode_kab_kota', $kode_kab_kota)->firstOrFail();
+        $provinces = Provinsi::orderBy('kode_prov', 'asc')->get();
         return view('adminpus.kab_kota.edit', compact('kab_kota', 'provinces'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $kode_kab_kota)
     {
-        $kab_kota = KabKota::findOrFail($id);
+        $kab_kota = KabKota::where('kode_kab_kota', $kode_kab_kota)->firstOrFail();
 
         $validated = $request->validate([
-            'id_prov' => 'required|exists:provinsis,id',
-            'nama_kab_kota' => 'required|string|max:255|unique:kab_kotas,nama_kab_kota,' . $id
+            'kode_prov' => 'required|exists:provinsis,kode_prov',
+            'nama_kab_kota' => 'required|string|max:255|unique:kab_kotas,nama_kab_kota,' . $kab_kota->id
         ], [
-            'id_prov.required' => 'Provinsi wajib dipilih',
-            'id_prov.exists' => 'Provinsi tidak valid',
+            'kode_prov.required' => 'Provinsi wajib dipilih',
+            'kode_prov.exists' => 'Provinsi tidak valid',
             'nama_kab_kota.required' => 'Nama kabupaten/kota wajib diisi',
             'nama_kab_kota.unique' => 'Nama kabupaten/kota sudah ada'
         ]);
@@ -85,18 +83,18 @@ class KabupatenKotaController extends Controller
             ->with('success', 'Kabupaten/Kota berhasil diperbarui!');
     }
 
-    public function destroy($id)
+    public function destroy($kode_kab_kota)
     {
-        $kab_kota = KabKota::findOrFail($id);
+        $kab_kota = KabKota::where('kode_kab_kota', $kode_kab_kota)->firstOrFail();
         $kab_kota->delete();
 
         return redirect()->route('kab_kota.index')
             ->with('success', 'Kabupaten/Kota berhasil dihapus!');
     }
 
-    public function getKabKotaByProvinsi($id_prov)
+    public function getKabKotaByProvinsi($kode_prov)
     {
-        $kabKotas = KabKota::where('id_prov', $id_prov)->orderBy('nama_kab_kota', 'asc')->get();
+        $kabKotas = KabKota::where('kode_prov', $kode_prov)->orderBy('nama_kab_kota', 'asc')->get();
         return response()->json($kabKotas);
     }
 }
