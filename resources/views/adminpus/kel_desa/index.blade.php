@@ -32,7 +32,7 @@
                         <form action="{{ route('kel_desa.index') }}" method="GET" class="mb-3">
                             <div class="input-group">
                                 <input type="text" name="search" class="form-control"
-                                    placeholder="Cari ID, Nama Kelurahan/Desa, Kecamatan, Kabupaten/Kota, atau Provinsi..."
+                                    placeholder="Cari Kode, Nama Kelurahan/Desa, Kecamatan, Kabupaten/Kota, atau Provinsi..."
                                     value="{{ request('search') }}">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="ri-search-line"></i>
@@ -40,49 +40,50 @@
                             </div>
                         </form>
 
-
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>ID</th>
-                                    <th>Provinsi</th>
-                                    <th>Kabupaten/Kota</th>
-                                    <th>Kecamatan</th>
-                                    <th>Nama Kelurahan/Desa</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($kelDesas as $index => $kelDesa)
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{ ($kelDesas->currentPage() - 1) * $kelDesas->perPage() + $index + 1 }}</td>
-                                        <td>{{ $kelDesa->id }}</td>
-                                        <td>{{ $kelDesa->provinsi->nama_provinsi ?? 'Data tidak tersedia' }}</td>
-                                        <td>{{ $kelDesa->kabKota->nama_kab_kota ?? 'Data tidak tersedia' }}</td>
-                                        <td>{{ $kelDesa->kecamatan->nama_kecamatan ?? 'Data tidak tersedia' }}</td>
-                                        <td>{{ $kelDesa->nama_kel_desa }}</td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <a href="{{ route('kel_desa.edit', $kelDesa->id) }}"
-                                                    class="btn btn-warning btn-sm">
-                                                    <i class="ri-edit-2-fill"></i>
-                                                </a>
-                                                <form action="{{ route('kel_desa.destroy', $kelDesa->id) }}" method="POST"
-                                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
-                                                    style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="ri-delete-bin-2-fill"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
+                                        <th>No</th>
+                                        <th>Kode Kelurahan/Desa</th>
+                                        <th>Provinsi</th>
+                                        <th>Kabupaten/Kota</th>
+                                        <th>Kecamatan</th>
+                                        <th>Nama Kelurahan/Desa</th>
+                                        <th>Aksi</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($kelDesas as $index => $kelDesa)
+                                        <tr>
+                                            <td>{{ ($kelDesas->currentPage() - 1) * $kelDesas->perPage() + $index + 1 }}</td>
+                                            <td>{{ $kelDesa->kode_kel_desa }}</td>
+                                            <td>{{ $kelDesa->provinsi->nama_provinsi ?? 'Data tidak tersedia' }}</td>
+                                            <td>{{ $kelDesa->kabKota->nama_kab_kota ?? 'Data tidak tersedia' }}</td>
+                                            <td>{{ $kelDesa->kecamatan->nama_kecamatan ?? 'Data tidak tersedia' }}</td>
+                                            <td>{{ $kelDesa->nama_kel_desa }}</td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a href="{{ route('kel_desa.edit', $kelDesa->kode_kel_desa) }}"
+                                                        class="btn btn-warning btn-sm">
+                                                        <i class="ri-edit-2-fill"></i>
+                                                    </a>
+                                                    <form action="{{ route('kel_desa.destroy', $kelDesa->kode_kel_desa) }}" method="POST"
+                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
+                                                        style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            <i class="ri-delete-bin-2-fill"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="d-flex justify-content-center">
                             {{ $kelDesas->appends(['search' => request('search')])->links() }}
                         </div>

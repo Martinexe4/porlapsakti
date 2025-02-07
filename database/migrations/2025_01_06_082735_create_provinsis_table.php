@@ -9,7 +9,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('provinsis', function (Blueprint $table) {
-            $table->string('id', 10)->primary();
+            $table->id(); 
+            $table->string('kode_prov', 10)->unique();
             $table->string('nama_provinsi');
             $table->timestamps();
         });
