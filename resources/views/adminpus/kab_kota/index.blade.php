@@ -36,12 +36,20 @@
                             </button>
                         </div>
                     </form>
+<<<<<<< HEAD
+=======
+                    
+>>>>>>> origin/master
 
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>No</th>
+<<<<<<< HEAD
                                 <th>Kode Kab/Kota</th>
+=======
+                                <th>ID</th>
+>>>>>>> origin/master
                                 <th>Provinsi</th>
                                 <th>Nama Kabupaten/Kota</th>
                                 <th>Aksi</th>
@@ -50,17 +58,30 @@
                         <tbody>
                             @foreach ($kab_kotas as $index => $kab_kota)
                             <tr>
+<<<<<<< HEAD
                                 <td>{{ ($kab_kotas->currentPage() - 1) * $kab_kotas->perPage() + $index + 1 }}</td>
                                 <td>{{ $kab_kota->kode_kab_kota }}</td>
+=======
+                                <td>{{ ($kab_kotas->currentPage() - 1) * $kab_kotas->perPage() + $index + 1 }}
+                                <td>{{ $kab_kota->id }}</td>
+>>>>>>> origin/master
                                 <td>{{ $kab_kota->provinsi->nama_provinsi }}</td>
                                 <td>{{ $kab_kota->nama_kab_kota }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
+<<<<<<< HEAD
                                         <a href="{{ route('kab_kota.edit', $kab_kota->kode_kab_kota) }}" 
                                            class="btn btn-warning btn-sm">
                                             <i class="ri-edit-2-fill"></i>
                                         </a>
                                         <form action="{{ route('kab_kota.destroy', $kab_kota->kode_kab_kota) }}" 
+=======
+                                        <a href="{{ route('kab_kota.edit', $kab_kota->id) }}" 
+                                           class="btn btn-warning btn-sm">
+                                            <i class="ri-edit-2-fill"></i>
+                                        </a>
+                                        <form action="{{ route('kab_kota.destroy', $kab_kota->id) }}" 
+>>>>>>> origin/master
                                               method="POST" 
                                               onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')" 
                                               style="display:inline;">
@@ -79,9 +100,17 @@
                     <div class="d-flex justify-content-center">
                         {{ $kab_kotas->appends(['search' => request('search')])->links() }}
                     </div>
+<<<<<<< HEAD
+=======
+                    
+>>>>>>> origin/master
                 </div>
             </div>
         </div>
     </div>
 </section>
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 @endsection

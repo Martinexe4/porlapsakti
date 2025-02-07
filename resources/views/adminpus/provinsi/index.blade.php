@@ -32,18 +32,30 @@
                         <form action="{{ route('provinsi.index') }}" method="GET" class="mb-3">
                             <div class="input-group">
                                 <input type="text" name="search" class="form-control"
+<<<<<<< HEAD
                                     placeholder="Cari Kode atau Nama Provinsi..." value="{{ request('search') }}">
+=======
+                                    placeholder="Cari ID atau Nama Provinsi..." value="{{ request('search') }}">
+>>>>>>> origin/master
                                 <button type="submit" class="btn btn-primary">
                                     <i class="ri-search-line"></i>
                                 </button>
                             </div>
                         </form>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>No</th>
+<<<<<<< HEAD
                                     <th>Kode Provinsi</th>
+=======
+                                    <th>ID Provinsi</th>
+>>>>>>> origin/master
                                     <th>Nama Provinsi</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -51,6 +63,7 @@
                             <tbody>
                                 @foreach ($provinces as $index => $province)
                                     <tr>
+<<<<<<< HEAD
                                         <td>{{ ($provinces->currentPage() - 1) * $provinces->perPage() + $index + 1 }}</td>
                                         <td>{{ $province->kode_prov }}</td>
                                         <td>{{ $province->nama_provinsi }}</td>
@@ -61,6 +74,18 @@
                                                     <i class="ri-edit-2-fill"></i>
                                                 </a>
                                                 <form action="{{ route('provinsi.destroy', $province->kode_prov) }}" method="POST"
+=======
+                                        <td>{{ ($provinces->currentPage() - 1) * $provinces->perPage() + $index + 1 }}
+                                        <td>{{ $province->id }}</td>
+                                        <td>{{ $province->nama_provinsi }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ route('provinsi.edit', $province->id) }}"
+                                                    class="btn btn-warning btn-sm">
+                                                    <i class="ri-edit-2-fill"></i>
+                                                </a>
+                                                <form action="{{ route('provinsi.destroy', $province->id) }}" method="POST"
+>>>>>>> origin/master
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus provinsi ini?')"
                                                     style="display:inline;">
                                                     @csrf
@@ -84,4 +109,8 @@
             </div>
         </div>
     </section>
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> origin/master

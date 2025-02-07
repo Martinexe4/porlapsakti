@@ -31,24 +31,43 @@
                     <form action="{{ route('kab_kota.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
+<<<<<<< HEAD
                             <label for="kode_kab_kota" class="form-label">Kode Kabupaten/Kota</label>
                             <input type="text" name="kode_kab_kota" class="form-control @error('kode_kab_kota') is-invalid @enderror" 
                                    value="{{ old('kode_kab_kota') }}" required maxlength="10">
                             @error('kode_kab_kota')
+=======
+                            <label for="id" class="form-label">ID Kabupaten/Kota</label>
+                            <input type="number" name="id" class="form-control @error('id') is-invalid @enderror" 
+                                   value="{{ old('id') }}" required>
+                            @error('id')
+>>>>>>> origin/master
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-3">
+<<<<<<< HEAD
                             <label for="kode_prov" class="form-label">Provinsi</label>
                             <select name="kode_prov" class="form-select @error('kode_prov') is-invalid @enderror" required>
                                 <option value="">Pilih Provinsi</option>
                                 @foreach($provinces as $provinsi)
                                     <option value="{{ $provinsi->kode_prov }}" {{ old('kode_prov') == $provinsi->kode_prov ? 'selected' : '' }}>
+=======
+                            <label for="id_prov" class="form-label">Provinsi</label>
+                            <select name="id_prov" class="form-select @error('id_prov') is-invalid @enderror" required>
+                                <option value="">Pilih Provinsi</option>
+                                @foreach($provinces as $provinsi)
+                                    <option value="{{ $provinsi->id }}" {{ old('id_prov') == $provinsi->id ? 'selected' : '' }}>
+>>>>>>> origin/master
                                         {{ $provinsi->nama_provinsi }}
                                     </option>
                                 @endforeach
                             </select>
+<<<<<<< HEAD
                             @error('kode_prov')
+=======
+                            @error('id_prov')
+>>>>>>> origin/master
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

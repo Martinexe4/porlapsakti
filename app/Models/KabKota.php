@@ -10,11 +10,18 @@ class KabKota extends Model
     use HasFactory;
     
     protected $table = 'kab_kotas';
+<<<<<<< HEAD
     protected $primaryKey = 'id'; 
     public $incrementing = true; 
     protected $keyType = 'int';
 
     protected $fillable = ['kode_kab_kota', 'kode_prov', 'nama_kab_kota'];
+=======
+    protected $primaryKey = 'kode_kab_kota'; // Primary key baru
+    protected $fillable = ['kode_kab_kota', 'kode_prov', 'nama_kab_kota'];
+    public $incrementing = false;
+    protected $keyType = 'string'; // Karena kode_kab_kota bertipe string
+>>>>>>> origin/master
 
     public function provinsi()
     {
@@ -25,4 +32,8 @@ class KabKota extends Model
     {
         return $this->hasMany(Kecamatan::class, 'kode_kab_kota', 'kode_kab_kota');
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master

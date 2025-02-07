@@ -10,6 +10,7 @@ class KelDesa extends Model
     use HasFactory;
     
     protected $table = 'kel_desas';
+<<<<<<< HEAD
     protected $fillable = ['kode_kel_desa', 'kode_prov', 'kode_kab_kota', 'kode_kec', 'nama_kel_desa'];
     protected $primaryKey = 'id'; 
     public $incrementing = true; 
@@ -18,6 +19,16 @@ class KelDesa extends Model
     public function kecamatan()
     {
         return $this->belongsTo(Kecamatan::class, 'kode_kec', 'kode_kec');
+=======
+    protected $primaryKey = 'kode_kel_desa'; // Primary key baru
+    protected $fillable = ['kode_kel_desa', 'kode_prov', 'kode_kab_kota', 'kode_kecamatan', 'nama_kel_desa'];
+    public $incrementing = false;
+    protected $keyType = 'string'; // Karena kode_kel_desa bertipe string
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'kode_kecamatan', 'kode_kec');
+>>>>>>> origin/master
     }
 
     public function kabKota()

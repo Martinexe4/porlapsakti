@@ -17,14 +17,31 @@ return new class extends Migration
             $table->string('kode_kab_kota', 10);
             $table->string('kode_kec', 10);
             $table->string('kode_kel_desa', 10);
+<<<<<<< HEAD
+=======
+            // $table->integer('id_jenis');
+            // $table->integer('id_sub_jenis');
+            // $table->string('npsn_kodePT');
+            // $table->string('status_PTN_PTS');
+>>>>>>> origin/master
             $table->string('nama_lembaga');
             $table->string('nama_perpus');
             $table->string('NPP');
             $table->string('alamat');
             $table->string('rt');
             $table->string('rw');
+<<<<<<< HEAD
             $table->string('email_lembaga');
             $table->string('email_perpus');
+=======
+            // $table->string('kode_pos');
+            $table->string('email_lembaga');
+            $table->string('email_perpus');
+            // $table->string('kode_negara');
+            // $table->string('kode_daerah');
+            // $table->string('nomor_telepon');
+            // $table->boolean('keaktifan');
+>>>>>>> origin/master
             $table->timestamps();
             $table->string('created_by', 300);
             $table->string('updated_by', 300);

@@ -31,6 +31,7 @@ class lembaga extends Model
         'updated_by',
     ];
 
+<<<<<<< HEAD
     public function provinsi()
     {
         return $this->belongsTo(Provinsi::class, 'kode_prov', 'kode_prov');
@@ -49,6 +50,26 @@ class lembaga extends Model
     public function kel_desa()
     {
         return $this->belongsTo(KelDesa::class, 'kode_kel_desa', 'kode_kel_desa');
+=======
+    // one to Many dari tabel provinsi
+     public function provinsi() {
+        return $this->belongsTo(Provinsi::class, 'kode_prov');
+    }
+
+    // one to Many dari tabel provinsi
+    public function kab_kota() {
+        return $this->belongsTo(KabKota::class, 'kode_kab_kota');
+    }
+
+    // one to Many dari tabel provinsi
+    public function kecamatan() {
+        return $this->belongsTo(Kecamatan::class, 'kode_kec');
+    }
+
+    // one to Many dari tabel provinsi
+    public function kel_desa() {
+        return $this->belongsTo(KelDesa::class, 'kode_kel_desa');
+>>>>>>> origin/master
     }
 
 }

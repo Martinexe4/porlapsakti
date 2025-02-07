@@ -31,11 +31,18 @@
                     <form action="{{ route('provinsi.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
+<<<<<<< HEAD
                             <label for="kode_prov" class="form-label">Kode Provinsi</label>
                             <input type="text" name="kode_prov" 
                                    class="form-control @error('kode_prov') is-invalid @enderror" 
                                    value="{{ old('kode_prov') }}" required>
                             @error('kode_prov')
+=======
+                            <label for="id" class="form-label">ID Provinsi</label>
+                            <input type="number" name="id" class="form-control @error('id') is-invalid @enderror" 
+                                   value="{{ old('id') }}" required>
+                            @error('id')
+>>>>>>> origin/master
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

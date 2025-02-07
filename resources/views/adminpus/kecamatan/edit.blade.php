@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<!-- File: resources/views/adminpus/kecamatan/edit.blade.php -->
+>>>>>>> origin/master
 @extends('adminpus.index')
 
 @section('content')
@@ -28,6 +32,7 @@
                         </div>
                     @endif
 
+<<<<<<< HEAD
                     <form action="{{ route('kecamatan.update', $kecamatan->kode_kec) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -43,15 +48,36 @@
                                 @foreach($provinces as $provinsi)
                                     <option value="{{ $provinsi->kode_prov }}" 
                                             {{ (old('kode_prov', $kecamatan->kode_prov) == $provinsi->kode_prov) ? 'selected' : '' }}>
+=======
+                    <form action="{{ route('kecamatan.update', $kecamatan->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-3">
+                            <label for="id" class="form-label">ID Kecamatan</label>
+                            <input type="number" class="form-control" value="{{ $kecamatan->id }}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_prov" class="form-label">Provinsi</label>
+                            <select id="id_prov" name="id_prov" class="form-select @error('id_prov') is-invalid @enderror" required>
+                                <option value="">Pilih Provinsi</option>
+                                @foreach($provinces as $provinsi)
+                                    <option value="{{ $provinsi->id }}" 
+                                            {{ (old('id_prov', $kecamatan->kabKota->id_prov) == $provinsi->id) ? 'selected' : '' }}>
+>>>>>>> origin/master
                                         {{ $provinsi->nama_provinsi }}
                                     </option>
                                 @endforeach
                             </select>
+<<<<<<< HEAD
                             @error('kode_prov')
+=======
+                            @error('id_prov')
+>>>>>>> origin/master
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-3">
+<<<<<<< HEAD
                             <label for="kode_kab_kota" class="form-label">Kabupaten/Kota</label>
                             <select id="kode_kab_kota" name="kode_kab_kota" 
                                     class="form-select @error('kode_kab_kota') is-invalid @enderror" required>
@@ -59,11 +85,23 @@
                                 @foreach($kabKotas as $kabKota)
                                     <option value="{{ $kabKota->kode_kab_kota }}" 
                                             {{ (old('kode_kab_kota', $kecamatan->kode_kab_kota) == $kabKota->kode_kab_kota) ? 'selected' : '' }}>
+=======
+                            <label for="id_kab_kota" class="form-label">Kabupaten/Kota</label>
+                            <select id="id_kab_kota" name="id_kab_kota" class="form-select @error('id_kab_kota') is-invalid @enderror" required>
+                                <option value="">Pilih Kabupaten/Kota</option>
+                                @foreach($kabKotas as $kabKota)
+                                    <option value="{{ $kabKota->id }}" 
+                                            {{ (old('id_kab_kota', $kecamatan->id_kab_kota) == $kabKota->id) ? 'selected' : '' }}>
+>>>>>>> origin/master
                                         {{ $kabKota->nama_kab_kota }}
                                     </option>
                                 @endforeach
                             </select>
+<<<<<<< HEAD
                             @error('kode_kab_kota')
+=======
+                            @error('id_kab_kota')
+>>>>>>> origin/master
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -86,6 +124,7 @@
         </div>
     </div>
 </section>
+<<<<<<< HEAD
 <script>
     $(document).ready(function() {
         $('#kode_prov').change(function() {
@@ -120,5 +159,42 @@
             }
         });
     });
+=======
+
+<script>
+    $(document).ready(function() {
+            $('#id_prov').change(function() {
+                var provinsiId = $(this).val();
+                if (provinsiId) {
+                    // Tampilkan loading (opsional)
+                    $('#id_kab_kota').prop('disabled', true).empty().append(
+                        '<option value="">Memuat...</option>');
+
+                    // Ambil data kabupaten/kota berdasarkan provinsi
+                    $.ajax({
+                        url: '/get-kabupaten-kota/' + provinsiId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#id_kab_kota').prop('disabled', false).empty().append(
+                                '<option value="">Pilih Kabupaten/Kota</option>');
+                            $.each(data, function(key, value) {
+                                $('#id_kab_kota').append('<option value="' + value.id +
+                                    '">' + value.nama_kab_kota + '</option>');
+                            });
+                        },
+                        error: function() {
+                            $('#id_kab_kota').prop('disabled', true).empty().append(
+                                '<option value="">Gagal memuat data</option>');
+                        }
+                    });
+                } else {
+                    // Kosongkan dropdown jika provinsi tidak dipilih
+                    $('#id_kab_kota').prop('disabled', true).empty().append(
+                        '<option value="">Pilih Kabupaten/Kota</option>');
+                }
+            });
+        });
+>>>>>>> origin/master
 </script>
 @endsection

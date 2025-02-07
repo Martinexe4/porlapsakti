@@ -10,18 +10,31 @@ class ProvinsiController extends Controller
     public function index(Request $request)
     {
         $query = Provinsi::query();
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> origin/master
         if ($request->has('search')) {
             $search = $request->input('search');
             $query->where('kode_prov', 'LIKE', '%' . $search . '%')
                   ->orWhere('nama_provinsi', 'LIKE', '%' . $search . '%');
         }
+<<<<<<< HEAD
 
         $provinces = $query->orderBy('kode_prov', 'asc')->paginate(15)->onEachSide(2);
 
         return view('adminpus.provinsi.index', compact('provinces'));
     }
 
+=======
+    
+        $provinces = $query->orderBy('kode_prov', 'asc')->paginate(15)->onEachSide(2);
+    
+        return view('adminpus.provinsi.index', compact('provinces'));
+    }
+    
+>>>>>>> origin/master
     public function create()
     {
         return view('adminpus.provinsi.create');
@@ -30,7 +43,11 @@ class ProvinsiController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+<<<<<<< HEAD
             'kode_prov' => 'required|numeric|unique:provinsis,kode_prov',
+=======
+            'kode_prov' => 'required|string|unique:provinsis,kode_prov',
+>>>>>>> origin/master
             'nama_provinsi' => 'required|string|max:255|unique:provinsis,nama_provinsi',
         ]);
 
@@ -42,16 +59,27 @@ class ProvinsiController extends Controller
 
     public function edit($kode_prov)
     {
+<<<<<<< HEAD
         $provinsi = Provinsi::where('kode_prov', $kode_prov)->firstOrFail();
+=======
+        $provinsi = Provinsi::findOrFail($kode_prov);
+>>>>>>> origin/master
         return view('adminpus.provinsi.edit', compact('provinsi'));
     }
 
     public function update(Request $request, $kode_prov)
     {
+<<<<<<< HEAD
         $provinsi = Provinsi::where('kode_prov', $kode_prov)->firstOrFail();
 
         $validated = $request->validate([
             'nama_provinsi' => 'required|string|max:255|unique:provinsis,nama_provinsi,' . $provinsi->id,
+=======
+        $provinsi = Provinsi::findOrFail($kode_prov);
+
+        $validated = $request->validate([
+            'nama_provinsi' => 'required|string|max:255|unique:provinsis,nama_provinsi,' . $kode_prov . ',kode_prov',
+>>>>>>> origin/master
         ]);
 
         $provinsi->update($validated);
@@ -62,7 +90,11 @@ class ProvinsiController extends Controller
 
     public function destroy($kode_prov)
     {
+<<<<<<< HEAD
         $provinsi = Provinsi::where('kode_prov', $kode_prov)->firstOrFail();
+=======
+        $provinsi = Provinsi::findOrFail($kode_prov);
+>>>>>>> origin/master
         $provinsi->delete();
 
         return redirect()->route('provinsi.index')

@@ -60,6 +60,7 @@ class lembagaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+<<<<<<< HEAD
             'kode_prov' => 'required|exists:provinsis,kode_prov',
             'kode_kab_kota' => 'required|exists:kab_kotas,kode_kab_kota',
             'kode_kec' => 'required|exists:kecamatans,kode_kec',
@@ -67,6 +68,15 @@ class lembagaController extends Controller
             'nama_lembaga' => 'required|max:300',
             'nama_perpus' => 'required|max:300',
             'NPP' => 'required|unique:lembagas,NPP',
+=======
+            'kode_prov' => 'required',
+            'kode_kab_kota' => 'required',
+            'kode_kec' => 'required|exists:kecamatans,id',
+            'kode_kel_desa' => 'required',
+            'nama_lembaga' => 'required|max:300',
+            'nama_perpus' => 'required|max:300',
+            'NPP' => 'required', // Sesuaikan nama tabel
+>>>>>>> origin/master
             'alamat' => 'required',
             'rt' => 'required|max:5',
             'rw' => 'required|max:5',
@@ -89,7 +99,11 @@ class lembagaController extends Controller
         $provinces = Provinsi::all();
         $kabupatenKotas = KabKota::where('kode_prov', $lembaga->kode_prov)->get();
         $kecamatans = kecamatan::where('kode_kab_kota', $lembaga->kode_kab_kota)->get();
+<<<<<<< HEAD
         $kelurahanDesas = KelDesa::where('kode_kec', $lembaga->kode_kec)->get();
+=======
+        $kelurahanDesas = KelDesa::where('kode_kecamatan', $lembaga->kode_kec)->get();
+>>>>>>> origin/master
 
     return view('adminpus.lembaga.edit', compact('lembaga', 'provinces', 'kabupatenKotas', 'kecamatans', 'kelurahanDesas'));
     }
@@ -98,10 +112,17 @@ class lembagaController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
+<<<<<<< HEAD
             'kode_prov' => 'required|exists:provinsis,kode_prov',
             'kode_kab_kota' => 'required|exists:kab_kotas,kode_kab_kota',
             'kode_kec' => 'required|exists:kecamatans,kode_kec',
             'kode_kel_desa' => 'required|exists:kel_desas,kode_kel_desa',
+=======
+            'kode_prov' => 'required',
+            'kode_kab_kota' => 'required',
+            'kode_kec' => 'required',
+            'kode_kel_desa' => 'required',
+>>>>>>> origin/master
             'nama_lembaga' => 'required|max:300',
             'nama_perpus' => 'required|max:300',
             'alamat' => 'required',

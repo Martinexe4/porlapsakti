@@ -28,6 +28,7 @@
                         </div>
                     @endif
 
+<<<<<<< HEAD
                     <form action="{{ route('kab_kota.update', $kab_kota->kode_kab_kota) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -42,11 +43,31 @@
                                 @foreach($provinces as $provinsi)
                                     <option value="{{ $provinsi->kode_prov }}" 
                                             {{ (old('kode_prov', $kab_kota->kode_prov) == $provinsi->kode_prov) ? 'selected' : '' }}>
+=======
+                    <form action="{{ route('kab_kota.update', $kab_kota->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-3">
+                            <label for="id" class="form-label">ID Kabupaten/Kota</label>
+                            <input type="number" class="form-control" value="{{ $kab_kota->id }}" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_prov" class="form-label">Provinsi</label>
+                            <select name="id_prov" class="form-select @error('id_prov') is-invalid @enderror" required>
+                                <option value="">Pilih Provinsi</option>
+                                @foreach($provinces as $provinsi)
+                                    <option value="{{ $provinsi->id }}" 
+                                            {{ (old('id_prov', $kab_kota->id_prov) == $provinsi->id) ? 'selected' : '' }}>
+>>>>>>> origin/master
                                         {{ $provinsi->nama_provinsi }}
                                     </option>
                                 @endforeach
                             </select>
+<<<<<<< HEAD
                             @error('kode_prov')
+=======
+                            @error('id_prov')
+>>>>>>> origin/master
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\KabKota;
 use App\Models\Provinsi;
+=======
+
+use App\Models\KabKota;
+use App\Models\provinsi;
+>>>>>>> origin/master
 use Illuminate\Http\Request;
 
 class KabupatenKotaController extends Controller
@@ -21,7 +27,11 @@ class KabupatenKotaController extends Controller
         }
     
         $kab_kotas = $query->orderBy('kode_prov', 'asc')
+<<<<<<< HEAD
                            ->orderBy('kode_kab_kota', 'asc')
+=======
+                           ->orderBy('id', 'asc')
+>>>>>>> origin/master
                            ->paginate(15)
                            ->onEachSide(2);
     
@@ -31,19 +41,33 @@ class KabupatenKotaController extends Controller
 
     public function create()
     {
+<<<<<<< HEAD
         $provinces = Provinsi::orderBy('kode_prov', 'asc')->get();
+=======
+        $provinces = provinsi::orderBy('id', 'asc')->get();
+>>>>>>> origin/master
         return view('adminpus.kab_kota.create', compact('provinces'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
+<<<<<<< HEAD
             'kode_kab_kota' => 'required|string|max:10|unique:kab_kotas,kode_kab_kota',
             'kode_prov' => 'required|exists:provinsis,kode_prov',
             'nama_kab_kota' => 'required|string|max:255|unique:kab_kotas,nama_kab_kota'
         ], [
             'kode_kab_kota.required' => 'Kode kabupaten/kota wajib diisi',
             'kode_kab_kota.unique' => 'Kode kabupaten/kota sudah digunakan',
+=======
+            'kode_kab_kota' => 'required|numeric|unique:kab_kotas,kode_kab_kota',
+            'kode_prov' => 'required|exists:provinsis,kode_prov',
+            'nama_kab_kota' => 'required|string|max:255|unique:kab_kotas,nama_kab_kota'
+        ], [
+            'kode_kab_kota.required' => 'ID kabupaten/kota wajib diisi',
+            'kode_kab_kota.numeric' => 'ID harus berupa angka',
+            'kode_kab_kota.unique' => 'ID sudah digunakan',
+>>>>>>> origin/master
             'kode_prov.required' => 'Provinsi wajib dipilih',
             'kode_prov.exists' => 'Provinsi tidak valid',
             'nama_kab_kota.required' => 'Nama kabupaten/kota wajib diisi',
@@ -58,18 +82,31 @@ class KabupatenKotaController extends Controller
 
     public function edit($kode_kab_kota)
     {
+<<<<<<< HEAD
         $kab_kota = KabKota::where('kode_kab_kota', $kode_kab_kota)->firstOrFail();
         $provinces = Provinsi::orderBy('kode_prov', 'asc')->get();
+=======
+        $kab_kota = KabKota::findOrFail($kode_kab_kota);
+        $provinces = provinsi::orderBy('id', 'asc')->get();
+>>>>>>> origin/master
         return view('adminpus.kab_kota.edit', compact('kab_kota', 'provinces'));
     }
 
     public function update(Request $request, $kode_kab_kota)
     {
+<<<<<<< HEAD
         $kab_kota = KabKota::where('kode_kab_kota', $kode_kab_kota)->firstOrFail();
 
         $validated = $request->validate([
             'kode_prov' => 'required|exists:provinsis,kode_prov',
             'nama_kab_kota' => 'required|string|max:255|unique:kab_kotas,nama_kab_kota,' . $kab_kota->id
+=======
+        $kab_kota = KabKota::findOrFail($kode_kab_kota);
+
+        $validated = $request->validate([
+            'kode_prov' => 'required|exists:provinsis,id',
+            'nama_kab_kota' => 'required|string|max:255|unique:kab_kotas,nama_kab_kota,' . $kode_kab_kota
+>>>>>>> origin/master
         ], [
             'kode_prov.required' => 'Provinsi wajib dipilih',
             'kode_prov.exists' => 'Provinsi tidak valid',
@@ -85,7 +122,11 @@ class KabupatenKotaController extends Controller
 
     public function destroy($kode_kab_kota)
     {
+<<<<<<< HEAD
         $kab_kota = KabKota::where('kode_kab_kota', $kode_kab_kota)->firstOrFail();
+=======
+        $kab_kota = KabKota::findOrFail($kode_kab_kota);
+>>>>>>> origin/master
         $kab_kota->delete();
 
         return redirect()->route('kab_kota.index')

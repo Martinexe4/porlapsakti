@@ -9,10 +9,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('kecamatans', function (Blueprint $table) {
+<<<<<<< HEAD
             $table->id(); 
             $table->string('kode_kec', 10)->unique();
             $table->string('kode_prov', 10);
             $table->string('kode_kab_kota', 10);
+=======
+            $table->string('id', 10);
+            $table->string('kode_kec', 10)->primary();
+            $table->string('kode_kab_kota', 10);
+            $table->string('kode_prov', 10);
+>>>>>>> origin/master
             $table->string('nama_kecamatan');
             $table->timestamps();
 

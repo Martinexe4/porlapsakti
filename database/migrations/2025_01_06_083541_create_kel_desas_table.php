@@ -9,11 +9,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('kel_desas', function (Blueprint $table) {
+<<<<<<< HEAD
             $table->id(); 
             $table->string('kode_kel_desa', 10)->unique();
             $table->string('kode_prov', 10);
             $table->string('kode_kab_kota', 10);
             $table->string('kode_kec', 10);
+=======
+            $table->string('id', 10);
+            $table->string('kode_kel_desa', 10)->primary();
+            $table->string('kode_kecamatan', 10);
+            $table->string('kode_kab_kota', 10);
+            $table->string('kode_prov', 10);
+>>>>>>> origin/master
             $table->string('nama_kel_desa');
             $table->timestamps();
 
@@ -27,7 +35,11 @@ return new class extends Migration
                   ->on('kab_kotas')
                   ->onDelete('cascade');
                   
+<<<<<<< HEAD
             $table->foreign('kode_kec')
+=======
+            $table->foreign('kode_kecamatan')
+>>>>>>> origin/master
                   ->references('kode_kec')
                   ->on('kecamatans')
                   ->onDelete('cascade');

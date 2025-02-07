@@ -83,7 +83,11 @@ Route::group(['middleware' => ['auth', 'checkrole:1']], function() {
 
     // Route Kabupaten Kota
     Route::resource('kab_kota', KabupatenKotaController::class);
+<<<<<<< HEAD
     Route::get('/get-kabupaten-kota/{kode_provinsi}', [KabupatenKotaController::class, 'getKabKotaByProvinsi'])->name('get-kabupaten-kota');
+=======
+    Route::get('/get-kabupaten-kota/{kode_prov}', [KabupatenKotaController::class, 'getKabKotaByProvinsi'])->name('get-kabupaten-kota');
+>>>>>>> origin/master
 
 
     // Route Kecamatan
